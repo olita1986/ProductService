@@ -5,16 +5,16 @@ final class ProductsController {
     func get(_ request: Request) throws -> EventLoopFuture<[ProductResponse]> {
         let querybuilder = Product.query(on: request.db)
 
-        if let categoryId = try request.query.get(Int?.self, at: "categoryId") {
+        if let categoryId = try? request.query.get(Int?.self, at: "categoryId") {
             querybuilder.filter(\.$categoryId == categoryId)
         }
-        if let query = try request.query.get(String?.self, at: "query") {
+        if let query = try? request.query.get(String?.self, at: "query") {
             querybuilder.filter(\.$name ~~ query)
             _ = querybuilder.group(.or) {
                 $0.filter(\Product.$name ~~ query).filter(\Product.$description ~~ query)
             }
         }
-        if let idsString = try request.query.get(String?.self, at: "ids") {
+        if let idsString = try? request.query.get(String?.self, at: "ids") {
             let ids:[Int] = idsString.split(separator: ",").map { Int(String($0)) ?? 0 }
             querybuilder.filter(\.$id ~~ ids)
         }
