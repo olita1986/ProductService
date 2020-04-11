@@ -47,7 +47,7 @@ final class ProductsController {
     }
 
     func edit(_ request: Request) throws -> EventLoopFuture<ProductResponse> {
-        let id = try request.query.get(Int?.self)
+        let id = request.parameters.get("id", as: Int.self)
         let content = try request.content.decode(ProductInput.self)
 
         return Product.find(id, on: request.db)
@@ -72,7 +72,7 @@ final class ProductsController {
     }
 
     func delete(_ request: Request) throws -> EventLoopFuture<HTTPStatus> {
-        let id = try request.query.get(Int.self)
+        let id = request.parameters.get("id", as: Int.self)
 
         return Product.find(id, on: request.db)
             .unwrap(or: Abort(.notFound))

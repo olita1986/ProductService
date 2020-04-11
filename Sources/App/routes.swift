@@ -3,7 +3,7 @@ import Vapor
 import SimpleJWTMiddleware
 
 func routes(_ app: Application) throws {
-    let root = app.grouped(.anything, "users")
+    let root = app.grouped(.anything, "products")
     let auth = root.grouped(SimpleJWTMiddleware())
     app.get(.anything, "name", "health") { req in
         return "Healthy!"

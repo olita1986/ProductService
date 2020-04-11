@@ -25,7 +25,7 @@ final class Product: Model {
     @Timestamp(key: "deletedAt", on: .delete)
     var deletedAt: Date?
 
-    @Timestamp(key: "updatedA", on: .update)
+    @Timestamp(key: "updatedAt", on: .update)
     var updatedAt: Date?
 
     init() {}
