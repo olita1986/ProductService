@@ -32,6 +32,7 @@ public func configure(_ app: Application) throws {
 
     app.migrations.add(CreateProduct())
     app.migrations.add(CreateCategory())
+    app.server.configuration.port = 8081
     // register routes
     try routes(app)
 }
